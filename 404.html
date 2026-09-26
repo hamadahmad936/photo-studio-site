@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page not found</title>
+  <style>
+    body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+           font-family: "Segoe UI", Arial, sans-serif; background: #f4f0ff; color: #14121f; text-align: center; padding: 20px; }
+    .box { max-width: 460px; padding: 32px; background: #fff; border: 3px solid #14121f;
+           border-radius: 16px; box-shadow: 8px 8px 0 #ff3d9a; }
+    h1 { font-size: 3rem; margin: 0 0 8px; }
+    a { display: inline-block; margin-top: 16px; padding: 10px 22px; font-weight: 700; color: #14121f;
+        background: #ffe234; border: 3px solid #14121f; border-radius: 999px; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>404</h1>
+    <p>Oops! We could not find that page.</p>
+    <a id="homeLink" href="/">Go to the home page</a>
+  </div>
+  <script>
+    var link = document.getElementById("homeLink");
+    var first = location.pathname.split("/")[1];
+    if (location.hostname.slice(-10) === "github.io" && first) {
+      link.href = "/" + first + "/";
+    }
+  </script>
+</body>
+</html>

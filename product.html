@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Customize your product</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>">
+</head>
+<body>
+
+   <header>
+    <div class="header-inner">
+      <h1 data-shop="name">ChromaCraft Studio &amp; labs</h1>
+      <nav>
+        <a href="index.html">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 3 2 12h3v8h6v-5h2v5h6v-8h3z"/></svg>
+          <span>Home</span>
+        </a>
+        <a href="cart.html">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M7 4h-1.5l-.9 2H2v2h1.5l3.3 7.59-1.24 2.25c-.15.26-.23.56-.23.87A2 2 0 0 0 7.3 20.7H19v-2H7.42a.25.25 0 0 1-.22-.37l.9-1.63h7.45a2 2 0 0 0 1.75-1.03l3.24-5.88A1 1 0 0 0 19.66 8H6.2l-.94-2H7zM7 22a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm10 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
+          <span>Cart (<span id="cartCount">0</span>)</span>
+        </a>
+        <a href="account.html">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4.4 0-9 2.2-9 5v3h18v-3c0-2.8-4.6-5-9-5z"/></svg>
+          <span>Account</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+    <main>
+    <p><a id="backLink" href="index.html">&larr; Back</a></p>
+    <h2 id="productTitle">Loading...</h2>
+    <p id="productPrice"></p>
+    <p id="productDesc"></p>
+
+    <!-- SIZE AND COLOR (only shown when the product has them) -->
+    <div id="optionsBox" style="display:none">
+      <div id="sizeRow" style="display:none">
+        <label for="sizeSelect">Size</label>
+        <select id="sizeSelect"></select>
+      </div>
+      <div id="colorRow" style="display:none">
+        <label for="colorSelect">Color</label>
+        <select id="colorSelect"></select>
+      </div>
+    </div>
+
+    <label for="qtyInput">Quantity</label>
+    <input id="qtyInput" type="number" min="1" max="99" value="1">
+
+    <h3>How do you want your design?</h3>
+    <label><input type="radio" name="mode" value="studio" checked> Design it for me (free)</label>
+    <label><input type="radio" name="mode" value="self"> I will design it myself (<span id="feeText"></span>)</label>
+
+    <!-- OPTION 1: WE DESIGN IT -->
+    <div id="studioPanel">
+      <p>Choose your photos (up to 10):</p>
+      <input type="file" id="studioFiles" accept="image/*" multiple>
+      <div id="studioThumbs"></div>
+      <p>Tell us how you want it (style, colors, names, text):</p>
+      <textarea id="studioNotes" rows="4" maxlength="500" placeholder="Example: birthday theme, blue colors, write 'Happy Birthday Ali' at the top"></textarea>
+      <p><b>Before we print, we send you a preview to approve.</b> Nothing is printed until you say yes.</p>
+    </div>
+
+    <!-- OPTION 2: CUSTOMER DESIGNS IT -->
+    <div id="selfPanel" style="display:none">
+      <canvas id="designCanvas" width="500" height="500"></canvas>
+
+      <p>1. Choose your photos (up to 4):</p>
+      <input type="file" id="designFile" accept="image/*" multiple>
+      <p id="photoCount"></p>
+      <p id="warnMsg"></p>
+
+      <div id="controls" style="display:none">
+        <p>2. Tap a photo to select it, then move it with your finger or mouse. Use these buttons on the selected photo:</p>
+        <button id="biggerBtn">Bigger</button>
+        <button id="smallerBtn">Smaller</button>
+        <button id="rotateBtn">Rotate</button>
+        <button id="removeBtn">Remove photo</button>
+        <button id="arrangeBtn">Arrange photos</button>
+      </div>
+    </div>
+
+    <p id="totalText"></p>
+    <button id="addToCartBtn">Add to cart</button>
+    <p id="msg"></p>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/imgbb-config.js"></script>
+  <script src="js/fabric.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/product.js"></script>
+</body>
+</html>

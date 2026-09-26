@@ -1,0 +1,1 @@
+const IMGBB_API_KEY = "625fbbe1b131b89d7ca2e87c273f2a87";

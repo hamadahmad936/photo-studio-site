@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Studio Admin</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>">
+</head>
+<body>
+
+  <h1>Studio Admin</h1>
+
+  <div id="adminLogin">
+    <h2>Admin login</h2>
+    <input id="loginEmail" type="email" placeholder="Admin email">
+    <input id="loginPassword" type="password" placeholder="Password">
+    <button id="loginBtn">Log in</button>
+    <p id="loginMsg"></p>
+  </div>
+
+    <div id="adminDashboard" style="display:none">
+    <button id="logoutBtn">Log out</button>
+
+    <h2>Store settings</h2>
+    <div id="settingsBox">
+      <h3>Shop info</h3>
+      <input id="sName" placeholder="Shop name">
+      <input id="sPhone" placeholder="Phone shown on the site (e.g. 0300-1234567)">
+      <input id="sWhatsapp" placeholder="WhatsApp number, e.g. 923001234567 (92 + number, no leading 0)">
+      <input id="sEmail" placeholder="Email (optional)">
+      <input id="sAddress" placeholder="Shop address">
+      <input id="sHours" placeholder="Opening hours">
+      <input id="sFacebook" placeholder="Facebook link (optional)">
+      <input id="sInstagram" placeholder="Instagram link (optional)">
+      <input id="sTiktok" placeholder="TikTok link (optional)">
+
+      <h3>Payments</h3>
+      <input id="sJazzcashNumber" placeholder="JazzCash number">
+      <input id="sJazzcashName" placeholder="JazzCash account name">
+      <input id="sBankName" placeholder="Bank name (optional)">
+      <input id="sBankTitle" placeholder="Bank account title (optional)">
+      <input id="sBankIban" placeholder="Bank IBAN (optional)">
+            <label><input type="checkbox" id="sCodEnabled"> Accept Cash on Delivery (COD)</label>
+      <label><input type="checkbox" id="sPickupEnabled"> Allow customers to pick up their order themselves (free)</label>
+      <label for="sAdvancePercent">Advance payment required for COD / pickup-cash orders (%, 0 = no advance)</label>
+      <input id="sAdvancePercent" type="number" min="0" max="100" placeholder="0">
+      <label for="sSelfDesignFee">Extra fee when a customer designs it themselves (Rs)</label>
+      <input id="sSelfDesignFee" type="number" min="0" placeholder="100">
+
+      <h3>Delivery</h3>
+      <input id="sDeliveryFee" type="number" placeholder="Delivery fee in Rs">
+      <input id="sFreeDeliveryAbove" type="number" placeholder="Free delivery above this total (0 = never free)">
+      <input id="sDeliveryTime" placeholder="Delivery time text">
+      <textarea id="sCodNote" placeholder="Note shown under Cash on Delivery at checkout"></textarea>
+
+      <h3>Announcement / offer bar</h3>
+      <label><input type="checkbox" id="sAnnounceEnabled"> Show an announcement bar at the top of the site</label>
+      <input id="sAnnounceText" placeholder="Announcement text, e.g. Eid Sale! 20% off all mugs">
+      <input id="sAnnounceLink" placeholder="Link when clicked (optional)">
+
+      <h3>Theme colors</h3>
+      <p>
+        <label>Text/outline <input id="cInk" type="color"></label>
+        <label>Background <input id="cPaper" type="color"></label>
+        <label>Accent 1 <input id="cCyan" type="color"></label>
+        <label>Accent 2 <input id="cMagenta" type="color"></label>
+        <label>Accent 3 <input id="cYellow" type="color"></label>
+        <label>Soft box <input id="cButter" type="color"></label>
+      </p>
+      <button id="resetThemeBtn">Reset colors to default</button>
+
+      <button id="saveSettingsBtn">Save settings</button>
+      <p id="settingsMsg"></p>
+    </div>
+
+    <h2 id="formTitle">Add a product</h2>
+    <input id="pName" placeholder="Product name (e.g. White Magic Mug)">
+        <input id="pPrice" type="number" placeholder="Price in Rs (e.g. 1200)">
+    <input id="pSalePrice" type="number" placeholder="Sale price in Rs (optional, leave empty for no discount)">
+    <select id="pType">
+      <option value="mug">Mug</option>
+      <option value="shirt">Shirt</option>
+      <option value="pillow">Pillow</option>
+      <option value="frame">Frame</option>
+    </select>
+    <input id="pGuide" value="mug-guide.png" placeholder="Guide file name">
+    <textarea id="pDesc" placeholder="Short description (material, size, print method...)"></textarea>
+    <input id="pSizes" placeholder="Sizes, separated by commas (e.g. S, M, L, XL). Leave empty if none">
+    <input id="pColors" placeholder="Colors, separated by commas (e.g. White, Black). Leave empty if none">
+    <label><input type="checkbox" id="pActive" checked> Show this product on the website</label>
+
+    <p>Product photo: <span id="photoNote"></span></p>
+    <input id="pPhoto" type="file" accept="image/*">
+
+    <button id="saveProductBtn">Add product</button>
+    <button id="cancelEditBtn" style="display:none">Cancel editing</button>
+    <p id="productMsg"></p>
+
+    <h2>Your products</h2>
+    <div id="productList"></div>
+
+        <h2>Orders</h2>
+    <label for="orderFilter">Show:</label>
+    <select id="orderFilter">
+      <option value="open">Open orders (not finished)</option>
+      <option value="done">Finished orders</option>
+      <option value="cancelled">Cancelled orders</option>
+      <option value="all">All orders</option>
+    </select>
+    <div id="orders"></div>
+
+    <h2>Reviews</h2>
+    <label for="reviewFilter">Show:</label>
+    <select id="reviewFilter">
+      <option value="pending">Waiting for approval</option>
+      <option value="approved">Approved (visible on the site)</option>
+      <option value="all">All reviews</option>
+    </select>
+    <div id="reviewsAdmin"></div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/imgbb-config.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
