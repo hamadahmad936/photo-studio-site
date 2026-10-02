@@ -469,14 +469,20 @@ function setupHeaderScroll() {
   if (!header) return;
   let lastY = window.scrollY;
   let ticking = false;
+  const MIN_MOVE = 10; // ignore tiny jumps (address bar resizing, image loads)
+
   window.addEventListener("scroll", function () {
     if (ticking) return;
     ticking = true;
     window.requestAnimationFrame(function () {
-      const y = window.scrollY;
-      if (y > lastY && y > 80) header.classList.add("header-hide");
-      else header.classList.remove("header-hide");
-      lastY = y;
+      const y = Math.max(0, window.scrollY); // ignore iOS/Android overscroll bounce
+      const delta = y - lastY;
+
+      if (Math.abs(delta) >= MIN_MOVE) {
+        if (delta > 0 && y > 80) header.classList.add("header-hide");
+        else if (delta < 0) header.classList.remove("header-hide");
+        lastY = y;
+      }
       ticking = false;
     });
   }, { passive: true });
