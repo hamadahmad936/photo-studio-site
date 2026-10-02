@@ -41,6 +41,8 @@ function buildFilters() {
     const btn = document.createElement("button");
     btn.textContent = type === "all" ? "All" : typeName(type);
     if (type === activeType) btn.className = "active";
+    btn.setAttribute("aria-pressed", type === activeType ? "true" : "false");
+    btn.setAttribute("aria-label", "Show " + (type === "all" ? "all products" : typeName(type)));
     btn.onclick = function () {
       activeType = type;
       buildFilters();
