@@ -2,8 +2,6 @@
    The colors are printer inks: cyan, magenta, yellow and "key" (ink black).
    To change the look, change the colors in the :root block below. */
 
-@import url("https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Bricolage+Grotesque:wght@400;600;700&display=swap");
-
 :root {
   --ink: #14121f;
   --paper: #f4f0ff;
