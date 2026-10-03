@@ -90,8 +90,11 @@
     <input id="pColors" placeholder="Colors, separated by commas (e.g. White, Black). Leave empty if none">
     <label><input type="checkbox" id="pActive" checked> Show this product on the website</label>
 
-    <p>Product photo: <span id="photoNote"></span></p>
+        <p>Main product photo: <span id="photoNote"></span></p>
     <input id="pPhoto" type="file" accept="image/*">
+
+    <p>Extra photos (optional, up to 4, shown on the product details page): <span id="galleryNote"></span></p>
+    <input id="pGallery" type="file" accept="image/*" multiple>
 
     <button id="saveProductBtn">Add product</button>
     <button id="cancelEditBtn" style="display:none">Cancel editing</button>

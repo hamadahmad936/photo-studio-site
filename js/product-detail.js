@@ -34,12 +34,36 @@ async function loadDetail() {
     const wrap = document.createElement("div");
     wrap.className = "detail-wrap";
 
+        const photoBox = document.createElement("div");
+    photoBox.className = "detail-photo-box";
+
     const img = document.createElement("img");
     img.className = "detail-photo";
     img.src = p.imageUrl;
     img.alt = p.name;
-    wrap.appendChild(img);
-    revealOnScroll(img);
+    photoBox.appendChild(img);
+
+    const allPhotos = [p.imageUrl].concat(Array.isArray(p.galleryUrls) ? p.galleryUrls : []);
+    if (allPhotos.length > 1) {
+      const thumbs = document.createElement("div");
+      thumbs.className = "detail-thumbs";
+      allPhotos.forEach(function (url, i) {
+        const t = document.createElement("img");
+        t.src = url;
+        t.alt = p.name + " photo " + (i + 1);
+        if (i === 0) t.className = "active";
+        t.onclick = function () {
+          img.src = url;
+          thumbs.querySelectorAll("img").forEach(function (x) { x.className = ""; });
+          t.className = "active";
+        };
+        thumbs.appendChild(t);
+      });
+      photoBox.appendChild(thumbs);
+    }
+
+    wrap.appendChild(photoBox);
+    revealOnScroll(photoBox);
 
     const info = document.createElement("div");
     info.className = "detail-info";

@@ -713,3 +713,17 @@ main:has(~ #stickyBar) { padding-bottom: 90px; }
   border-radius: 12px;
 }
 .review-stars { color: var(--magenta); font-size: 1.1rem; margin-right: 6px; }
+
+/* ---- product gallery thumbnails ---- */
+.detail-photo-box { flex: 1 1 320px; max-width: 420px; }
+.detail-thumbs { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.detail-thumbs img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  cursor: pointer;
+  opacity: 0.6;
+}
+.detail-thumbs img.active, .detail-thumbs img:hover { opacity: 1; box-shadow: 3px 3px 0 var(--cyan); }

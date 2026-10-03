@@ -56,6 +56,7 @@ const fSizes = document.getElementById("pSizes");
 const fColors = document.getElementById("pColors");
 const fActive = document.getElementById("pActive");
 const fPhoto = document.getElementById("pPhoto");
+const fGallery = document.getElementById("pGallery");
 const saveBtn = document.getElementById("saveProductBtn");
 const cancelBtn = document.getElementById("cancelEditBtn");
 
@@ -81,7 +82,8 @@ function resetForm() {
   document.getElementById("formTitle").textContent = "Add a product";
   saveBtn.textContent = "Add product";
   cancelBtn.style.display = "none";
-  document.getElementById("photoNote").textContent = "";
+    document.getElementById("photoNote").textContent = "";
+  document.getElementById("galleryNote").textContent = "";
     fName.value = "";
   fPrice.value = "";
   fSalePrice.value = "";
@@ -91,7 +93,8 @@ function resetForm() {
   fSizes.value = "";
   fColors.value = "";
   fActive.checked = true;
-  fPhoto.value = "";
+    fPhoto.value = "";
+  fGallery.value = "";
 }
 
 function startEdit(id, p) {
@@ -99,7 +102,10 @@ function startEdit(id, p) {
   document.getElementById("formTitle").textContent = "Edit product";
   saveBtn.textContent = "Save changes";
   cancelBtn.style.display = "inline-block";
-  document.getElementById("photoNote").textContent = "(leave empty to keep the current photo)";
+    document.getElementById("photoNote").textContent = "(leave empty to keep the current photo)";
+  document.getElementById("galleryNote").textContent = (p.galleryUrls && p.galleryUrls.length)
+    ? "(" + p.galleryUrls.length + " saved - choosing new ones replaces all of them)"
+    : "(none yet)";
     fName.value = p.name || "";
   fPrice.value = p.price || "";
   fSalePrice.value = p.salePrice || "";
@@ -109,7 +115,8 @@ function startEdit(id, p) {
   fSizes.value = (p.sizes || []).join(", ");
   fColors.value = (p.colors || []).join(", ");
   fActive.checked = p.active !== false;
-  fPhoto.value = "";
+    fPhoto.value = "";
+  fGallery.value = "";
   productMsg.textContent = "";
   document.getElementById("formTitle").scrollIntoView();
 }
@@ -152,11 +159,22 @@ saveBtn.addEventListener("click", async function () {
       updatedAt: firebase.firestore.FieldValue.serverTimestamp()
     };
 
-    if (file) {
-      productMsg.textContent = "Uploading photo...";
+        if (file) {
+      productMsg.textContent = "Uploading main photo...";
       const photo = await uploadToImgBBFull(file);
       data.imageUrl = photo.url;
       data.thumbUrl = photo.thumb;
+    }
+
+    const galleryFiles = Array.from(fGallery.files).slice(0, 4);
+    if (galleryFiles.length) {
+      const galleryUrls = [];
+      for (let i = 0; i < galleryFiles.length; i++) {
+        productMsg.textContent = "Uploading extra photo " + (i + 1) + " of " + galleryFiles.length + "...";
+        const g = await uploadToImgBBFull(galleryFiles[i]);
+        galleryUrls.push(g.url);
+      }
+      data.galleryUrls = galleryUrls;
     }
 
     if (editingId) {
