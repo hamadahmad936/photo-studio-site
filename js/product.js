@@ -2,9 +2,9 @@
 // Numbers are a share of the guide picture: x and y = top-left corner,
 // w and h = width and height. 0.5 means half of the picture.
 const ZONES = {
-  mug:    { x: 0.03, y: 0.08, w: 0.94, h: 0.84 },
-  shirt:  { x: 0.05, y: 0.10, w: 0.90, h: 0.80 },
-  pillow: { x: 0.05, y: 0.10, w: 0.90, h: 0.80 },
+    mug:    { x: 0.18, y: 0.15, w: 0.48, h: 0.55 },
+    shirt:  { x: 0.37, y: 0.30, w: 0.26, h: 0.41 },
+    pillow: { x: 0.28, y: 0.18, w: 0.43, h: 0.64 },
   frame:  { x: 0.15, y: 0.15, w: 0.70, h: 0.70 }
 };
 
